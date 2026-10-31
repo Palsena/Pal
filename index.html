@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pal Sena - Official Family Portal</title>
   <!-- Favicon using Golden House Icon -->
-  <link rel="icon" type="image/jpeg" href="title_icon.png">
+  <link rel="icon" type="image/jpeg" href="title_icon.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,6 +25,8 @@
       --female-border: #f472b6;
       --male-border: #38bdf8;
       --spouse-border: #fbbf24;
+      --danger: #ef4444;
+      --danger-dark: #b91c1c;
     }
 
     * {
@@ -106,6 +108,17 @@
     .admin-nav-btn:hover {
       background: var(--gold);
       color: #000 !important;
+    }
+
+    .admin-status-badge {
+      display: none;
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid #4ade80;
+      color: #4ade80;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
     }
 
     /* Hero */
@@ -237,6 +250,17 @@
       color: #fff;
     }
 
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--danger);
+      color: #fca5a5;
+    }
+
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
     /* Tree Controls */
     .tree-controls {
       display: flex;
@@ -269,7 +293,7 @@
       border-radius: 3px;
     }
 
-    /* TREE VIEWPORT & CANAVAS */
+    /* TREE VIEWPORT & CANVAS */
     .tree-viewport {
       width: 100%;
       height: 700px;
@@ -480,9 +504,7 @@
       font-weight: 600;
     }
 
-    /* ========================================================
-       PHOTO GALLERY WITH PERSON / SUB-ALBUM GROUPING
-       ======================================================== */
+    /* GALLERY WITH GROUPING & ADMIN CONTROLS */
     .gallery-filter-main {
       display: flex;
       justify-content: center;
@@ -509,7 +531,6 @@
       border-color: var(--gold);
     }
 
-    /* Sub-Album Grouping Chiclets */
     .subgroups-wrapper {
       background: rgba(18, 23, 32, 0.7);
       border: 1px solid var(--border);
@@ -568,6 +589,7 @@
       transition: transform 0.2s, border-color 0.2s;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     .gallery-card:hover {
@@ -595,6 +617,35 @@
 
     .gallery-card:hover .gallery-img-wrap img {
       transform: scale(1.04);
+    }
+
+    /* Delete Button overlay on cards for admin */
+    .card-delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(239, 68, 68, 0.85);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .card-delete-btn:hover {
+      background: #dc2626;
+    }
+
+    body.admin-mode .card-delete-btn {
+      display: inline-flex;
     }
 
     .gallery-content {
@@ -858,7 +909,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -907,6 +958,71 @@
       overflow-y: auto;
     }
 
+    /* Admin Tabs */
+    .admin-nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .admin-tab-btn.active {
+      color: var(--gold);
+      background: var(--surface-2);
+    }
+
+    /* Admin Manage Photos List */
+    .admin-photo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .admin-photo-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .admin-photo-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .admin-photo-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-photo-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 2.5rem 1rem;
@@ -934,7 +1050,8 @@
       <li><a href="#gallery-section">Photo Gallery</a></li>
       <li><a href="#notifications-section">Noticeboard</a></li>
       <li><a href="#highlights-section">Milestones</a></li>
-      <li><button class="admin-nav-btn" onclick="openAdminModal()">⚙️ Admin Login</button></li>
+      <li><span class="admin-status-badge" id="adminIndicator">Admin Mode Active</span></li>
+      <li><button class="admin-nav-btn" id="adminNavBtn" onclick="openAdminModal()">⚙️ Admin Login</button></li>
     </ul>
   </nav>
 
@@ -1331,7 +1448,7 @@
       </div>
     </section>
 
-    <!-- SECTION 2: PHOTO GALLERY WITH GROUPING & ADMIN UPLOADS -->
+    <!-- SECTION 2: PHOTO GALLERY WITH GROUPING & ADMIN DELETE/UPLOAD -->
     <section id="gallery-section">
       <h2 class="section-title">Pal Sena Gallery & Albums</h2>
       <p class="section-desc">Browse albums grouped by event and individual. Select any category to view individual wedding and celebration albums.</p>
@@ -1448,7 +1565,7 @@
     </section>
   </main>
 
-  <!-- ADMIN LOGIN & PHOTO UPLOAD MODAL -->
+  <!-- ADMIN LOGIN & PHOTO MANAGER MODAL -->
   <div class="modal" id="adminModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1458,7 +1575,7 @@
       <div class="modal-body">
         <!-- Auth View -->
         <div id="adminAuthSection">
-          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">Enter the administrative PIN to upload photos, create new album groups, and manage the portal.</p>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">Enter the administrative PIN to upload photos, delete photos, create new album groups, and manage the portal.</p>
           <div class="form-group">
             <label>Admin Passcode / PIN</label>
             <input type="password" id="adminPinInput" placeholder="Enter PIN (Default: 1944)" onkeydown="if(event.key==='Enter') verifyAdminPin()">
@@ -1466,61 +1583,79 @@
           <button class="btn btn-primary" style="width:100%;" onclick="verifyAdminPin()">Unlock Admin Dashboard</button>
         </div>
 
-        <!-- Upload Dashboard View -->
+        <!-- Admin Dashboard View -->
         <div id="adminDashboardSection" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;">
-            <span style="color:#4ade80;font-size:0.85rem;">● Logged In as Admin</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <span style="color:#4ade80;font-size:0.85rem;font-weight:600;">● Admin Session Active</span>
             <button class="btn" style="padding:0.25rem 0.6rem;font-size:0.75rem;" onclick="adminLogout()">Logout</button>
           </div>
 
-          <form onsubmit="handleAdminPhotoUpload(event)">
-            <div class="form-group">
-              <label>1. Main Category</label>
-              <select id="uploadCategory" onchange="updateGroupSuggestions(this.value)">
-                <option value="weddings">💍 Wedding Celebrations</option>
-                <option value="events">🎉 Festivals & Functions</option>
-                <option value="trips">🏞️ Travel & Tours</option>
-                <option value="heritage">🌾 Ancestral Roots</option>
-              </select>
-            </div>
+          <!-- Tabs: Upload vs Manage/Delete -->
+          <div class="admin-nav-tabs">
+            <button class="admin-tab-btn active" id="tabUploadBtn" onclick="switchAdminTab('upload')">➕ Upload New Photo</button>
+            <button class="admin-tab-btn" id="tabManageBtn" onclick="switchAdminTab('manage')">🗑️ Manage / Delete Photos</button>
+          </div>
 
-            <div class="form-group">
-              <label>2. Album / Person Group Name</label>
-              <input type="text" id="uploadSubgroup" list="subgroupSuggestions" placeholder="e.g. Vipul's Wedding or Seema's Wedding" required>
-              <datalist id="subgroupSuggestions">
-                <option value="Vipul's Wedding">
-                <option value="Seema's Wedding">
-                <option value="Priyanka's Wedding">
-                <option value="Rinki's Wedding">
-                <option value="Shanu's Wedding">
-                <option value="Sonam's Wedding">
-              </datalist>
-              <span style="font-size:0.75rem;color:var(--text-muted);">Tip: Type any name to create a brand new chiclet group.</span>
-            </div>
+          <!-- TAB 1: Upload Form -->
+          <div id="adminTabUpload">
+            <form onsubmit="handleAdminPhotoUpload(event)">
+              <div class="form-group">
+                <label>1. Main Category</label>
+                <select id="uploadCategory" onchange="updateGroupSuggestions(this.value)">
+                  <option value="weddings">💍 Wedding Celebrations</option>
+                  <option value="events">🎉 Festivals & Functions</option>
+                  <option value="trips">🏞️ Travel & Tours</option>
+                  <option value="heritage">🌾 Ancestral Roots</option>
+                </select>
+              </div>
 
-            <div class="form-group">
-              <label>3. Photo Title / Caption</label>
-              <input type="text" id="uploadTitle" placeholder="e.g. Sangeet Ceremony Smiles" required>
-            </div>
+              <div class="form-group">
+                <label>2. Album / Person Group Name</label>
+                <input type="text" id="uploadSubgroup" list="subgroupSuggestions" placeholder="e.g. Vipul's Wedding or Seema's Wedding" required>
+                <datalist id="subgroupSuggestions">
+                  <option value="Vipul's Wedding">
+                  <option value="Seema's Wedding">
+                  <option value="Priyanka's Wedding">
+                  <option value="Rinki's Wedding">
+                  <option value="Shanu's Wedding">
+                  <option value="Sonam's Wedding">
+                </datalist>
+                <span style="font-size:0.75rem;color:var(--text-muted);">Tip: Type any name to create a brand new chiclet group.</span>
+              </div>
 
-            <div class="form-group">
-              <label>4. Photo File or Web Image URL</label>
-              <input type="file" id="uploadFileInput" accept="image/*" style="margin-bottom:0.5rem;" onchange="previewImageFile(event)">
-              <input type="url" id="uploadUrlInput" placeholder="Or paste Image URL (https://...)">
-            </div>
+              <div class="form-group">
+                <label>3. Photo Title / Caption</label>
+                <input type="text" id="uploadTitle" placeholder="e.g. Sangeet Ceremony Smiles" required>
+              </div>
 
-            <div id="uploadPreviewBox" style="display:none;margin-bottom:1rem;text-align:center;">
-              <img id="uploadPreviewImg" src="" style="max-height:160px;border-radius:8px;border:1px solid var(--border);">
-            </div>
+              <div class="form-group">
+                <label>4. Photo File or Web Image URL</label>
+                <input type="file" id="uploadFileInput" accept="image/*" style="margin-bottom:0.5rem;" onchange="previewImageFile(event)">
+                <input type="url" id="uploadUrlInput" placeholder="Or paste Image URL (https://...)">
+              </div>
 
-            <button type="submit" class="btn btn-primary" id="uploadSubmitBtn" style="width:100%;">Upload & Publish to Everyone</button>
-          </form>
+              <div id="uploadPreviewBox" style="display:none;margin-bottom:1rem;text-align:center;">
+                <img id="uploadPreviewImg" src="" style="max-height:160px;border-radius:8px;border:1px solid var(--border);">
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="uploadSubmitBtn" style="width:100%;">Upload & Publish to Everyone</button>
+            </form>
+          </div>
+
+          <!-- TAB 2: Manage & Delete Photos List -->
+          <div id="adminTabManage" style="display:none;">
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem;">Click the delete button next to any photo to permanently remove it from the cloud for all visitors.</p>
+            <div id="adminPhotosManageList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Fullscreen Lightbox Modal -->
+  <!-- Fullscreen Lightbox Modal with Admin Delete -->
   <div class="modal" id="lightboxModal">
     <div class="modal-content">
       <button class="modal-close" style="position:absolute;top:10px;right:15px;z-index:20;" onclick="closeLightbox()">&times;</button>
@@ -1528,9 +1663,12 @@
         <!-- Img injected here -->
       </div>
       <div style="padding:1.5rem;">
-        <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;">
-          <span id="modalCategory" class="gallery-tag">CATEGORY</span>
-          <span id="modalSubgroup" class="gallery-subgroup-badge">Group</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <span id="modalCategory" class="gallery-tag">CATEGORY</span>
+            <span id="modalSubgroup" class="gallery-subgroup-badge">Group</span>
+          </div>
+          <button id="lightboxDeleteBtn" class="btn btn-danger" style="display:none;padding:0.25rem 0.65rem;font-size:0.8rem;" onclick="handleLightboxDelete()">🗑️ Delete Photo</button>
         </div>
         <h3 id="modalTitle" style="color:var(--gold);font-family:'Cinzel',serif;font-size:1.2rem;">Title</h3>
         <p id="modalDesc" style="color:var(--text-muted);font-size:0.88rem;margin-top:0.3rem;">Description</p>
@@ -1676,65 +1814,72 @@
     /* ========================================================
        3. DYNAMIC GALLERY & GROUPING LOGIC
        ======================================================== */
-    // Initial sample photos with individual person / event grouping
-    let allGalleryItems = [
+    const defaultGalleryItems = [
       {
-        id: "w1",
+        id: "default_w1",
         category: "weddings",
         subgroup: "Vipul's Wedding",
         title: "Vipul's Sangeet Celebration",
         img: "title_icon.jpg",
-        date: "Family Archive"
+        date: "Family Archive",
+        isDefault: true
       },
       {
-        id: "w2",
+        id: "default_w2",
         category: "weddings",
         subgroup: "Seema's Wedding",
         title: "Seema & Harilal's Nuptials",
         img: "title_icon.jpg",
-        date: "Family Archive"
+        date: "Family Archive",
+        isDefault: true
       },
       {
-        id: "e1",
+        id: "default_e1",
         category: "events",
         subgroup: "Diwali Mahotsav",
         title: "Annual Diwali Lights & Pooja",
         img: "title_icon.jpg",
-        date: "Annual"
+        date: "Annual",
+        isDefault: true
       },
       {
-        id: "t1",
+        id: "default_t1",
         category: "trips",
         subgroup: "Haridwar & Subedarganj",
         title: "Holy Ganges Darshan",
         img: "title_icon.jpg",
-        date: "Family Yatra"
+        date: "Family Yatra",
+        isDefault: true
       },
       {
-        id: "h1",
+        id: "default_h1",
         category: "heritage",
         subgroup: "Punnar & Kalavati Roots",
         title: "Ancestral Homeland & Farmland",
         img: "title_icon.jpg",
-        date: "1944 Legacy"
+        date: "1944 Legacy",
+        isDefault: true
       }
     ];
 
+    let allGalleryItems = [...defaultGalleryItems];
     let currentMainCategory = 'all';
     let currentSubgroup = 'all';
+    let currentViewingPhoto = null;
+    let isAdminLoggedIn = false;
 
     function listenForRealtimeGallery() {
       galleryRef.on('value', (snap) => {
+        const cloudItems = [];
         if (snap.exists()) {
-          const cloudItems = [];
           snap.forEach((child) => {
             cloudItems.unshift({ id: child.key, ...child.val() });
           });
-          // Merge defaults and cloud items
-          allGalleryItems = [...cloudItems, ...allGalleryItems.filter(def => !cloudItems.some(c => c.id === def.id))];
         }
+        allGalleryItems = [...cloudItems, ...defaultGalleryItems];
         renderSubgroupsBar();
         renderGalleryGrid();
+        renderAdminManagePhotosList();
       });
     }
 
@@ -1761,12 +1906,10 @@
       const bar = document.getElementById('subgroupsBar');
       const label = document.getElementById('subgroupsLabel');
 
-      // Filter items according to the main category
       const visibleItems = currentMainCategory === 'all'
         ? allGalleryItems
         : allGalleryItems.filter(item => item.category === currentMainCategory);
 
-      // Collect unique subgroups
       const subgroups = [...new Set(visibleItems.map(item => item.subgroup).filter(Boolean))];
 
       if (subgroups.length === 0) {
@@ -1798,16 +1941,27 @@
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No photos uploaded for this album yet. Admin can upload photos using the Admin Portal button.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No photos found in this album. Admin can add photos via the Admin Portal.</div>`;
         return;
       }
 
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'gallery-card';
-        card.onclick = () => openLightbox(item);
+        card.onclick = (e) => {
+          // Prevent opening lightbox if clicking delete button
+          if (e.target.closest('.card-delete-btn')) return;
+          openLightbox(item);
+        };
+
+        const deleteButtonHtml = `
+          <button class="card-delete-btn" title="Delete Image" onclick="deletePhoto('${item.id}', '${escapeHtml(item.title)}')">
+            🗑️ Delete
+          </button>
+        `;
 
         card.innerHTML = `
+          ${deleteButtonHtml}
           <div class="gallery-img-wrap">
             <img src="${item.img}" alt="${escapeHtml(item.title)}" onerror="this.src='title_icon.jpg'">
           </div>
@@ -1831,12 +1985,13 @@
       }
       renderSubgroupsBar();
       renderGalleryGrid();
+      renderAdminManagePhotosList();
     }
 
     /* ========================================================
-       4. ADMIN AUTHENTICATION & PHOTO UPLOAD
+       4. ADMIN AUTHENTICATION, UPLOAD & DELETION LOGIC
        ======================================================== */
-    const ADMIN_PASSCODE = "1944"; // You can change this PIN
+    const ADMIN_PASSCODE = "1944";
 
     function openAdminModal() {
       document.getElementById('adminModal').classList.add('active');
@@ -1849,19 +2004,107 @@
     function verifyAdminPin() {
       const pin = document.getElementById('adminPinInput').value.trim();
       if (pin === ADMIN_PASSCODE || pin.toLowerCase() === "palsena") {
+        isAdminLoggedIn = true;
+        document.body.classList.add('admin-mode');
+        document.getElementById('adminIndicator').style.display = 'inline-block';
+        document.getElementById('adminNavBtn').textContent = "⚙️ Admin Portal";
         document.getElementById('adminAuthSection').style.display = 'none';
         document.getElementById('adminDashboardSection').style.display = 'block';
         document.getElementById('adminModalTitle').textContent = "⚙️ Admin Photo & Album Manager";
+        renderGalleryGrid();
+        renderAdminManagePhotosList();
       } else {
         alert("Incorrect Admin Passcode. Please try again.");
       }
     }
 
     function adminLogout() {
+      isAdminLoggedIn = false;
+      document.body.classList.remove('admin-mode');
+      document.getElementById('adminIndicator').style.display = 'none';
+      document.getElementById('adminNavBtn').textContent = "⚙️ Admin Login";
       document.getElementById('adminAuthSection').style.display = 'block';
       document.getElementById('adminDashboardSection').style.display = 'none';
       document.getElementById('adminModalTitle').textContent = "⚙️ Admin Login";
       document.getElementById('adminPinInput').value = '';
+      renderGalleryGrid();
+    }
+
+    function switchAdminTab(tab) {
+      const tabUpload = document.getElementById('adminTabUpload');
+      const tabManage = document.getElementById('adminTabManage');
+      const btnUpload = document.getElementById('tabUploadBtn');
+      const btnManage = document.getElementById('tabManageBtn');
+
+      if (tab === 'upload') {
+        tabUpload.style.display = 'block';
+        tabManage.style.display = 'none';
+        btnUpload.classList.add('active');
+        btnManage.classList.remove('active');
+      } else {
+        tabUpload.style.display = 'none';
+        tabManage.style.display = 'block';
+        btnUpload.classList.remove('active');
+        btnManage.classList.add('active');
+        renderAdminManagePhotosList();
+      }
+    }
+
+    function renderAdminManagePhotosList() {
+      const container = document.getElementById('adminPhotosManageList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (allGalleryItems.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">No photos available to manage.</p>';
+        return;
+      }
+
+      allGalleryItems.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'admin-photo-row';
+        row.innerHTML = `
+          <img src="${item.img}" class="admin-photo-thumb" onerror="this.src='title_icon.jpg'">
+          <div class="admin-photo-details">
+            <div class="admin-photo-title">${escapeHtml(item.title)}</div>
+            <div class="admin-photo-meta">${escapeHtml(item.subgroup || 'General')} • ${escapeHtml(item.category)}</div>
+          </div>
+          <button class="btn btn-danger" style="padding:0.3rem 0.65rem;font-size:0.78rem;" onclick="deletePhoto('${item.id}', '${escapeHtml(item.title)}')">
+            🗑️ Delete
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // Single unified delete function
+    function deletePhoto(id, title) {
+      if (!isAdminLoggedIn) {
+        openAdminModal();
+        return;
+      }
+
+      const confirmDelete = confirm(`Are you sure you want to permanently delete "${title}"?`);
+      if (!confirmDelete) return;
+
+      if (galleryRef && id && !id.startsWith("default_")) {
+        // Remove from Firebase Realtime Database
+        galleryRef.child(id).remove().then(() => {
+          alert(`"${title}" has been deleted successfully.`);
+          closeLightbox();
+        }).catch(err => {
+          alert("Error deleting photo: " + err.message);
+        });
+      } else {
+        // Fallback or default items removal
+        allGalleryItems = allGalleryItems.filter(item => item.id !== id);
+        localStorage.setItem('pal_sena_gallery', JSON.stringify(allGalleryItems));
+        alert(`"${title}" has been deleted.`);
+        renderSubgroupsBar();
+        renderGalleryGrid();
+        renderAdminManagePhotosList();
+        closeLightbox();
+      }
     }
 
     let encodedImageData = "";
@@ -1938,6 +2181,7 @@
           alert("Error publishing: " + err.message);
         });
       } else {
+        newItem.id = "local_" + Date.now();
         allGalleryItems.unshift(newItem);
         localStorage.setItem('pal_sena_gallery', JSON.stringify(allGalleryItems));
         alert(`Saved locally into "${subgroup}"!`);
@@ -1958,19 +2202,35 @@
     }
 
     /* ========================================================
-       5. LIGHTBOX MODAL
+       5. LIGHTBOX MODAL WITH ADMIN DELETE BUTTON
        ======================================================== */
     function openLightbox(item) {
+      currentViewingPhoto = item;
       document.getElementById('modalTitle').textContent = item.title;
       document.getElementById('modalCategory').textContent = item.category.toUpperCase();
       document.getElementById('modalSubgroup').textContent = item.subgroup || 'Family Album';
       document.getElementById('modalDesc').textContent = item.date || 'Captured moment';
       document.getElementById('lightboxImgContainer').innerHTML = `<img src="${item.img}" style="max-height:480px;width:100%;object-fit:contain;" onerror="this.src='title_icon.jpg'">`;
+      
+      const deleteBtn = document.getElementById('lightboxDeleteBtn');
+      if (isAdminLoggedIn) {
+        deleteBtn.style.display = 'inline-flex';
+      } else {
+        deleteBtn.style.display = 'none';
+      }
+
       document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function handleLightboxDelete() {
+      if (currentViewingPhoto) {
+        deletePhoto(currentViewingPhoto.id, currentViewingPhoto.title);
+      }
     }
 
     function closeLightbox() {
       document.getElementById('lightboxModal').classList.remove('active');
+      currentViewingPhoto = null;
     }
 
     /* ========================================================
