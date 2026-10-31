@@ -1406,20 +1406,20 @@
        ======================================================== */
     // REPLACE THESE VALUES WITH YOUR FIREBASE PROJECT CONFIG:
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+    apiKey: "AIzaSyAllJxe5nLK_M2SmB-fi7NQmXQmIaUVx84",
+    authDomain: "pal-sena-web-page.firebaseapp.com",
+    projectId: "pal-sena-web-page",
+    storageBucket: "pal-sena-web-page.firebasestorage.app",
+    messagingSenderId: "1066502599004",
+    appId: "1:1066502599004:web:8bed96f852babda2219199",
+    measurementId: "G-MECF38DWYE"
+  };
 
     let db = null;
     let noticesRef = null;
 
     // Check if configuration is updated
-    if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    if (firebaseConfig.apiKey !== "AIzaSyAllJxe5nLK_M2SmB-fi7NQmXQmIaUVx84") {
       try {
         firebase.initializeApp(firebaseConfig);
         db = firebase.database();
