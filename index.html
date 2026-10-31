@@ -94,7 +94,7 @@
       color: var(--gold);
     }
 
-    /* Hero */
+    /* Header */
     header {
       background: radial-gradient(circle at top, rgba(139, 29, 36, 0.35) 0%, rgba(11, 14, 20, 0.95) 75%), var(--bg);
       border-bottom: 1px solid var(--border);
@@ -249,7 +249,7 @@
       border-radius: 3px;
     }
 
-    /* TREE VIEWPORT & CANAVAS FIX FOR FULL LEFT-SCROLL */
+    /* TREE VIEWPORT & CANAVAS */
     .tree-viewport {
       width: 100%;
       height: 700px;
@@ -569,7 +569,29 @@
       font-family: 'Cinzel', serif;
       font-size: 1.2rem;
       color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #4ade80;
       margin-bottom: 1rem;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     .form-group {
@@ -611,6 +633,12 @@
       border-radius: 12px;
       padding: 1.25rem 1.5rem;
       border-left: 4px solid var(--gold);
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .notice-item.urgent {
@@ -784,6 +812,10 @@
       background: var(--surface);
     }
   </style>
+
+  <!-- Google Firebase App & Realtime Database CDN (Spark Tier) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -1261,14 +1293,17 @@
       </div>
     </section>
 
-    <!-- SECTION 3: NOTICEBOARD & NOTIFICATIONS -->
+    <!-- SECTION 3: NOTICEBOARD & NOTIFICATIONS (FIREBASE REALTIME SYNC) -->
     <section id="notifications-section">
       <h2 class="section-title">Pal Sena Noticeboard</h2>
-      <p class="section-desc">Post upcoming family gatherings, birthdays, or share announcements.</p>
+      <p class="section-desc">Live community board. Any update posted here appears instantly for all family members.</p>
 
       <div class="noticeboard-grid">
         <div class="notice-composer">
           <h3>Post an Update</h3>
+          <div class="live-status">
+            <span class="live-dot"></span> <span id="syncStatus">Connected to Live Cloud</span>
+          </div>
           <form id="noticeForm" onsubmit="postNotice(event)">
             <div class="form-group">
               <label>Your Name</label>
@@ -1286,7 +1321,7 @@
               <label>Message</label>
               <textarea id="noticeMessage" rows="4" placeholder="Write your announcement or blessing..." required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Share on Board</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">Share on Board</button>
           </form>
         </div>
 
@@ -1294,17 +1329,9 @@
           <div class="notice-item">
             <div class="notice-meta">
               <span class="notice-author">📢 Family Council</span>
-              <span class="notice-date">Recent</span>
+              <span class="notice-date">Official</span>
             </div>
-            <p class="notice-text">Welcome to the newly launched official <strong>Pal Sena Family Portal</strong>! Please check the family tree and share any old photos or stories with the coordinators.</p>
-          </div>
-
-          <div class="notice-item urgent">
-            <div class="notice-meta">
-              <span class="notice-author">🎉 Next Gathering</span>
-              <span class="notice-date">Upcoming</span>
-            </div>
-            <p class="notice-text">Plans for our next grand family get-together are underway. All branches are requested to coordinate their calendars!</p>
+            <p class="notice-text">Welcome to the <strong>Pal Sena Family Portal</strong>! All messages posted here are synced in real time across all family members' devices.</p>
           </div>
         </div>
       </div>
@@ -1375,7 +1402,125 @@
 
   <script>
     /* ========================================================
-       1. DRAGGABLE & FREELY SCROLLABLE TREE CANVAS
+       1. FIREBASE REALTIME DATABASE CONFIGURATION (Spark Tier)
+       ======================================================== */
+    // REPLACE THESE VALUES WITH YOUR FIREBASE PROJECT CONFIG:
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    let db = null;
+    let noticesRef = null;
+
+    // Check if configuration is updated
+    if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+      try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.database();
+        noticesRef = db.ref('notices');
+        listenForRealtimeNotices();
+      } catch (err) {
+        console.warn("Firebase initialization error:", err);
+        document.getElementById('syncStatus').textContent = "Offline Mode";
+        loadLocalFallback();
+      }
+    } else {
+      document.getElementById('syncStatus').textContent = "Local Mode (Add Firebase Keys for Cloud)";
+      document.getElementById('syncStatus').style.color = "var(--gold)";
+      loadLocalFallback();
+    }
+
+    function listenForRealtimeNotices() {
+      // Listen for newly added posts in realtime across all devices
+      noticesRef.orderByChild('timestamp').limitToLast(50).on('value', (snapshot) => {
+        const noticesList = document.getElementById('noticesList');
+        // Clear previous user notices, retain the initial announcement
+        const pinnedItem = noticesList.querySelector('.notice-item:last-child');
+        noticesList.innerHTML = '';
+
+        const noticesArray = [];
+        snapshot.forEach((child) => {
+          noticesArray.unshift(child.val());
+        });
+
+        noticesArray.forEach((item) => {
+          renderNoticeDOM(item);
+        });
+
+        if (pinnedItem) noticesList.appendChild(pinnedItem);
+      });
+    }
+
+    function postNotice(e) {
+      e.preventDefault();
+      const name = document.getElementById('noticeName').value.trim();
+      const category = document.getElementById('noticeCategory').value;
+      const message = document.getElementById('noticeMessage').value.trim();
+      if (!name || !message) return;
+
+      const newNotice = {
+        name: name,
+        category: category,
+        message: message,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+        timestamp: Date.now()
+      };
+
+      if (noticesRef) {
+        // Push directly to Firebase Realtime Database
+        noticesRef.push(newNotice).then(() => {
+          document.getElementById('noticeForm').reset();
+        }).catch((err) => {
+          alert("Error publishing message to cloud: " + err.message);
+        });
+      } else {
+        // LocalStorage fallback if keys aren't added yet
+        saveToLocalStorage(newNotice);
+        renderNoticeDOM(newNotice, true);
+        document.getElementById('noticeForm').reset();
+      }
+    }
+
+    function renderNoticeDOM(n, prepend = false) {
+      const list = document.getElementById('noticesList');
+      const item = document.createElement('div');
+      item.className = 'notice-item' + (n.category === 'Urgent' ? ' urgent' : '');
+      item.innerHTML = `
+        <div class="notice-meta">
+          <span class="notice-author">${escapeHtml(n.name)} (${escapeHtml(n.category)})</span>
+          <span class="notice-date">${escapeHtml(n.date)}</span>
+        </div>
+        <p class="notice-text">${escapeHtml(n.message)}</p>
+      `;
+      if (prepend) {
+        list.prepend(item);
+      } else {
+        list.appendChild(item);
+      }
+    }
+
+    function saveToLocalStorage(notice) {
+      const stored = JSON.parse(localStorage.getItem('pal_sena_notices') || '[]');
+      stored.unshift(notice);
+      localStorage.setItem('pal_sena_notices', JSON.stringify(stored));
+    }
+
+    function loadLocalFallback() {
+      const stored = localStorage.getItem('pal_sena_notices');
+      if (stored) {
+        const notices = JSON.parse(stored);
+        notices.forEach(n => renderNoticeDOM(n, true));
+      }
+    }
+
+    /* ========================================================
+       2. TREE CANVAS CONTROLS & UNRESTRICTED DRAGGING
        ======================================================== */
     const viewport = document.getElementById('treeViewport');
     let isDown = false;
@@ -1439,7 +1584,7 @@
     });
 
     /* ========================================================
-       2. TREE TOGGLE LOGIC
+       3. TREE EXPANSION / COLLAPSE
        ======================================================== */
     function toggleNode(element) {
       const parentLi = element.closest('li');
@@ -1465,7 +1610,7 @@
     }
 
     /* ========================================================
-       3. PHOTO GALLERY FILTER & LIGHTBOX
+       4. PHOTO GALLERY FILTER & LIGHTBOX
        ======================================================== */
     function filterGallery(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1491,69 +1636,11 @@
       document.getElementById('lightboxModal').classList.remove('active');
     }
 
-    /* ========================================================
-       4. NOTICEBOARD LOCAL STORAGE
-       ======================================================== */
-    function loadSavedNotices() {
-      const stored = localStorage.getItem('pal_sena_notices');
-      if (stored) {
-        const notices = JSON.parse(stored);
-        const list = document.getElementById('noticesList');
-        notices.forEach(n => {
-          const item = document.createElement('div');
-          item.className = 'notice-item' + (n.category === 'Urgent' ? ' urgent' : '');
-          item.innerHTML = `
-            <div class="notice-meta">
-              <span class="notice-author">${escapeHtml(n.name)} (${escapeHtml(n.category)})</span>
-              <span class="notice-date">${escapeHtml(n.date)}</span>
-            </div>
-            <p class="notice-text">${escapeHtml(n.message)}</p>
-          `;
-          list.prepend(item);
-        });
-      }
-    }
-
-    function postNotice(e) {
-      e.preventDefault();
-      const name = document.getElementById('noticeName').value.trim();
-      const category = document.getElementById('noticeCategory').value;
-      const message = document.getElementById('noticeMessage').value.trim();
-      if (!name || !message) return;
-
-      const newNotice = {
-        name,
-        category,
-        message,
-        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-      };
-
-      const stored = JSON.parse(localStorage.getItem('pal_sena_notices') || '[]');
-      stored.unshift(newNotice);
-      localStorage.setItem('pal_sena_notices', JSON.stringify(stored));
-
-      const list = document.getElementById('noticesList');
-      const item = document.createElement('div');
-      item.className = 'notice-item' + (category === 'Urgent' ? ' urgent' : '');
-      item.innerHTML = `
-        <div class="notice-meta">
-          <span class="notice-author">${escapeHtml(newNotice.name)} (${escapeHtml(newNotice.category)})</span>
-          <span class="notice-date">${escapeHtml(newNotice.date)}</span>
-        </div>
-        <p class="notice-text">${escapeHtml(newNotice.message)}</p>
-      `;
-      list.prepend(item);
-
-      document.getElementById('noticeForm').reset();
-    }
-
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     }
-
-    loadSavedNotices();
   </script>
 </body>
 </html>
