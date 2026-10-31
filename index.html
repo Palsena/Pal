@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pal Sena - Official Family Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8b1d24;
+      --primary-dark: #5e1116;
+      --gold: #d4af37;
+      --gold-light: #fef3c7;
+      --gold-dark: #92400e;
+      --bg: #0b0e14;
+      --surface: #121720;
+      --surface-2: #1b2230;
+      --border: #263042;
+      --text: #f0f6fc;
+      --text-muted: #8b9bb4;
+      --female-border: #f472b6;
+      --male-border: #38bdf8;
+      --spouse-border: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 14, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-brand span.crest-mini {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #b45309);
+      color: #000;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* Hero */
+    header {
+      background: radial-gradient(circle at top, rgba(139, 29, 36, 0.35) 0%, rgba(11, 14, 20, 0.95) 75%), var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 1rem 2.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .crest {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, #b45309 100%);
+      color: #000;
+      font-size: 2.2rem;
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(212, 175, 55, 0.25);
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      max-width: 680px;
+      margin: 0.5rem auto 1.5rem;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.45rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 1rem 5rem;
+    }
+
+    section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 5rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Buttons */
+    .btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.55rem 1.3rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--surface-2);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      color: #fff;
+    }
+
+    /* Tree Controls */
+    .tree-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* TREE VIEWPORT & CANAVAS FIX FOR FULL LEFT-SCROLL */
+    .tree-viewport {
+      width: 100%;
+      height: 700px;
+      border: 1px solid var(--border);
+      background: radial-gradient(#1e2638 1px, transparent 1px), var(--surface);
+      background-size: 24px 24px;
+      border-radius: 16px;
+      overflow: auto;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tree-viewport:active {
+      cursor: grabbing;
+    }
+
+    .tree-canvas {
+      display: block;
+      width: max-content;
+      min-width: 100%;
+      padding: 80px 140px 140px;
+      box-sizing: border-box;
+    }
+
+    .tree {
+      display: table;
+      margin: 0 auto;
+    }
+
+    .tree, .tree ul {
+      list-style-type: none;
+      padding: 0;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .tree ul {
+      display: flex;
+      justify-content: center;
+      padding-top: 28px;
+    }
+
+    .tree ul::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border-left: 2px solid var(--border);
+      width: 0;
+      height: 28px;
+    }
+
+    .tree li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding: 28px 14px 0 14px;
+    }
+
+    .tree li::before, .tree li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 50%;
+      border-top: 2px solid var(--border);
+      width: 50%;
+      height: 28px;
+    }
+
+    .tree li::after {
+      right: auto;
+      left: 50%;
+      border-left: 2px solid var(--border);
+    }
+
+    .tree li:only-child::after, .tree li:only-child::before {
+      display: none;
+    }
+
+    .tree li:only-child {
+      padding-top: 0;
+    }
+
+    .tree li:first-child::before, .tree li:last-child::after {
+      border: none;
+    }
+
+    .tree li:last-child::before {
+      border-right: 2px solid var(--border);
+      border-radius: 0 8px 0 0;
+    }
+
+    .tree li:first-child::after {
+      border-radius: 8px 0 0 0;
+    }
+
+    /* Chiclets */
+    .couple-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .couple-container:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .single-chiclet {
+      display: inline-block;
+    }
+
+    .chiclet {
+      background: #111622;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 145px;
+      max-width: 185px;
+      text-align: left;
+    }
+
+    .chiclet.male {
+      border-left: 3px solid var(--male-border);
+    }
+
+    .chiclet.female {
+      border-left: 3px solid var(--female-border);
+    }
+
+    .chiclet.spouse {
+      border-left: 3px solid var(--spouse-border);
+      background: rgba(22, 28, 40, 0.85);
+    }
+
+    .person-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .person-dates {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .person-role {
+      font-size: 0.7rem;
+      color: var(--gold);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .ring-connector {
+      color: var(--gold);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      flex-shrink: 0;
+    }
+
+    .toggle-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      color: var(--gold-light);
+      margin-left: 3px;
+    }
+
+    .collapsed > ul {
+      display: none !important;
+    }
+
+    .collapsed .couple-container {
+      border-color: rgba(212, 175, 55, 0.6);
+      background: #18202d;
+    }
+
+    .collapsed .toggle-badge {
+      background: var(--gold-dark);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Photo Gallery */
+    .gallery-filter {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.45rem 1.1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--gold);
+      color: #000;
+      font-weight: 600;
+      border-color: var(--gold);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+
+    .gallery-img-wrap {
+      width: 100%;
+      height: 210px;
+      background: var(--surface-2);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery-content {
+      padding: 1rem 1.2rem;
+    }
+
+    .gallery-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .gallery-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Noticeboard */
+    .noticeboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 850px) {
+      .noticeboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .notice-composer {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: fit-content;
+    }
+
+    .notice-composer h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .notices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .notice-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      border-left: 4px solid var(--gold);
+    }
+
+    .notice-item.urgent {
+      border-left-color: var(--female-border);
+    }
+
+    .notice-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .notice-author {
+      font-weight: 600;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+    }
+
+    .notice-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .notice-text {
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--border);
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 600px) {
+      .timeline::before {
+        left: 20px;
+      }
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      width: 50%;
+      padding: 0 2rem;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+
+    @media (max-width: 600px) {
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 50px;
+        text-align: left !important;
+      }
+    }
+
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot {
+      right: -8px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -8px;
+    }
+
+    @media (max-width: 600px) {
+      .timeline-dot {
+        left: 12px !important;
+      }
+    }
+
+    .timeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+    }
+
+    .timeline-year {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 700px;
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <span class="crest-mini">👑</span>
+      Pal Sena
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tree-section">Family Tree</a></li>
+      <li><a href="#gallery-section">Photo Gallery</a></li>
+      <li><a href="#notifications-section">Noticeboard</a></li>
+      <li><a href="#highlights-section">Milestones</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="crest">👑</div>
+    <h1>Pal Sena</h1>
+    <p class="subtitle">Official Family Portal & Ancestral Tree • Honouring our roots, celebrating our growth, and binding our generations together.</p>
+    
+    <div class="stats-bar">
+      <div class="stat-pill">🌳 <strong>4</strong> Generations</div>
+      <div class="stat-pill">👥 <strong>25+</strong> Family Members</div>
+      <div class="stat-pill">📍 Roots Established <strong>1944</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1: FAMILY TREE -->
+    <section id="tree-section">
+      <h2 class="section-title">Generational Hierarchy</h2>
+      <p class="section-desc">Click and drag anywhere on the canvas to freely pan across branches. Click any family unit with children to expand or collapse.</p>
+
+      <div class="tree-controls">
+        <button class="btn btn-primary" onclick="expandAll()">Expand All</button>
+        <button class="btn" onclick="collapseAll()">Collapse to 2nd Gen</button>
+        <button class="btn" onclick="scrollToLeft()">Scroll to Left Branch</button>
+        <button class="btn" onclick="resetCenter()">Center Tree</button>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><span class="legend-color" style="background: var(--male-border);"></span> Male</div>
+        <div class="legend-item"><span class="legend-color" style="background: var(--female-border);"></span> Female</div>
+        <div class="legend-item"><span class="legend-color" style="background: var(--spouse-border);"></span> Married Spouse</div>
+        <div class="legend-item"><span class="ring-connector" style="width:14px;height:14px;font-size:0.6rem;">💍</span> Marriage Union</div>
+      </div>
+
+      <!-- Free Pan Canvas with unrestricted horizontal reach -->
+      <div class="tree-viewport" id="treeViewport">
+        <div class="tree-canvas" id="treeCanvas">
+          <div class="tree" id="treeRoot">
+            <ul>
+              <li id="root-node">
+                <!-- 1st Generation: Patriarch & Matriarch -->
+                <div class="couple-container" onclick="toggleNode(this)">
+                  <div class="chiclet male">
+                    <div class="person-name">Punnar Pal</div>
+                    <div class="person-dates">1944 – Present</div>
+                    <div class="person-role">Patriarch • Farmer</div>
+                  </div>
+                  <div class="ring-connector">💍</div>
+                  <div class="chiclet female spouse">
+                    <div class="person-name">Kalavati Pal</div>
+                    <div class="person-dates">1945 – 1991</div>
+                    <div class="person-role">Matriarch • Housewife</div>
+                  </div>
+                  <span class="toggle-badge">5 sons ▾</span>
+                </div>
+
+                <!-- 2nd Generation: 5 Sons -->
+                <ul>
+                  <!-- 1. Tufanilal Pal -->
+                  <li>
+                    <div class="couple-container" onclick="toggleNode(this)">
+                      <div class="chiclet male">
+                        <div class="person-name">Tufanilal Pal</div>
+                        <div class="person-dates">1961 – Present</div>
+                        <div class="person-role">Eldest Son</div>
+                      </div>
+                      <div class="ring-connector">💍</div>
+                      <div class="chiclet female spouse">
+                        <div class="person-name">Sheetal Pal</div>
+                        <div class="person-dates">1963 – 2023</div>
+                        <div class="person-role">Wife</div>
+                      </div>
+                      <span class="toggle-badge">5 kids ▾</span>
+                    </div>
+
+                    <!-- Tufanilal's Children (3rd Gen) -->
+                    <ul>
+                      <li>
+                        <div class="couple-container" onclick="toggleNode(this)">
+                          <div class="chiclet female">
+                            <div class="person-name">Seema Pal</div>
+                            <div class="person-dates">1989 – Present</div>
+                          </div>
+                          <div class="ring-connector">💍</div>
+                          <div class="chiclet male spouse">
+                            <div class="person-name">Harilal Pal</div>
+                            <div class="person-dates">Spouse</div>
+                          </div>
+                          <span class="toggle-badge">1 son ▾</span>
+                        </div>
+                        <!-- 4th Gen: Shivan -->
+                        <ul>
+                          <li>
+                            <div class="chiclet male single-chiclet">
+                              <div class="person-name">Shivan Pal</div>
+                              <div class="person-dates">2015 – Present</div>
+                              <div class="person-role">Son</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Anita Pal</div>
+                          <div class="person-dates">1991 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Vipul Pal</div>
+                          <div class="person-dates">1995 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Ripunjay Pal</div>
+                          <div class="person-dates">1997 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Neeraj Pal</div>
+                          <div class="person-dates">1998 – Present</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- 2. Bhagwat Pal -->
+                  <li>
+                    <div class="couple-container" onclick="toggleNode(this)">
+                      <div class="chiclet male">
+                        <div class="person-name">Bhagwat Pal</div>
+                        <div class="person-dates">1963 – 2017</div>
+                        <div class="person-role">2nd Son</div>
+                      </div>
+                      <div class="ring-connector">💍</div>
+                      <div class="chiclet female spouse">
+                        <div class="person-name">Nirmala Pal</div>
+                        <div class="person-dates">1965 – Present</div>
+                        <div class="person-role">Wife</div>
+                      </div>
+                      <span class="toggle-badge">6 kids ▾</span>
+                    </div>
+
+                    <!-- Bhagwat's Children (3rd Gen) -->
+                    <ul>
+                      <li>
+                        <div class="couple-container" onclick="toggleNode(this)">
+                          <div class="chiclet female">
+                            <div class="person-name">Priyanka Pal</div>
+                            <div class="person-dates">1990 – Present</div>
+                          </div>
+                          <div class="ring-connector">💍</div>
+                          <div class="chiclet male spouse">
+                            <div class="person-name">Gopal Pal</div>
+                            <div class="person-dates">Spouse</div>
+                          </div>
+                          <span class="toggle-badge">2 sons ▾</span>
+                        </div>
+                        <!-- 4th Gen: Apul & Kautilaya -->
+                        <ul>
+                          <li>
+                            <div class="chiclet male single-chiclet">
+                              <div class="person-name">Apul Pal</div>
+                              <div class="person-dates">2017 – Present</div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="chiclet male single-chiclet">
+                              <div class="person-name">Kautilaya Pal</div>
+                              <div class="person-dates">2021 – Present</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Poonam Pal</div>
+                          <div class="person-dates">1992 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Pushpa Pal</div>
+                          <div class="person-dates">1994 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Sandeep Pal</div>
+                          <div class="person-dates">1997 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Khushboo Pal</div>
+                          <div class="person-dates">1999 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Ankush Pal</div>
+                          <div class="person-dates">2005 – Present</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- 3. Shivprakash Pal -->
+                  <li>
+                    <div class="couple-container" onclick="toggleNode(this)">
+                      <div class="chiclet male">
+                        <div class="person-name">Shivprakash Pal</div>
+                        <div class="person-dates">1970 – 2022</div>
+                        <div class="person-role">3rd Son</div>
+                      </div>
+                      <div class="ring-connector">💍</div>
+                      <div class="chiclet female spouse">
+                        <div class="person-name">Champa Pal</div>
+                        <div class="person-dates">1968 – Present</div>
+                        <div class="person-role">Wife</div>
+                      </div>
+                      <span class="toggle-badge">6 kids ▾</span>
+                    </div>
+
+                    <!-- Shivprakash's Children (3rd Gen) -->
+                    <ul>
+                      <li>
+                        <div class="couple-container" onclick="toggleNode(this)">
+                          <div class="chiclet female">
+                            <div class="person-name">Rinki Pal</div>
+                            <div class="person-dates">1990 – Present</div>
+                          </div>
+                          <div class="ring-connector">💍</div>
+                          <div class="chiclet male spouse">
+                            <div class="person-name">Shivgovind Pal</div>
+                            <div class="person-dates">Spouse</div>
+                          </div>
+                          <span class="toggle-badge">1 son ▾</span>
+                        </div>
+                        <!-- 4th Gen: Rishant -->
+                        <ul>
+                          <li>
+                            <div class="chiclet male single-chiclet">
+                              <div class="person-name">Rishant Pal</div>
+                              <div class="person-dates">2023 – Present</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="couple-container" onclick="toggleNode(this)">
+                          <div class="chiclet female">
+                            <div class="person-name">Shanu Pal</div>
+                            <div class="person-dates">1996 – Present</div>
+                          </div>
+                          <div class="ring-connector">💍</div>
+                          <div class="chiclet male spouse">
+                            <div class="person-name">Aman Pal</div>
+                            <div class="person-dates">Spouse</div>
+                          </div>
+                          <span class="toggle-badge">1 son ▾</span>
+                        </div>
+                        <!-- 4th Gen: Duggu -->
+                        <ul>
+                          <li>
+                            <div class="chiclet male single-chiclet">
+                              <div class="person-name">Duggu Pal</div>
+                              <div class="person-dates">2025 – Present</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="couple-container">
+                          <div class="chiclet female">
+                            <div class="person-name">Sonam Pal</div>
+                            <div class="person-dates">2002 – Present</div>
+                          </div>
+                          <div class="ring-connector">💍</div>
+                          <div class="chiclet male spouse">
+                            <div class="person-name">Anuj Pal</div>
+                            <div class="person-dates">Spouse</div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Sonal Pal</div>
+                          <div class="person-dates">2004 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Shifali Pal</div>
+                          <div class="person-dates">2006 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Anurag Pal</div>
+                          <div class="person-dates">2011 – Present</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- 4. Hawaldar Pal -->
+                  <li>
+                    <div class="couple-container" onclick="toggleNode(this)">
+                      <div class="chiclet male">
+                        <div class="person-name">Hawaldar Pal</div>
+                        <div class="person-dates">1978 – Present</div>
+                        <div class="person-role">4th Son</div>
+                      </div>
+                      <div class="ring-connector">💍</div>
+                      <div class="chiclet female spouse">
+                        <div class="person-name">Pushpa Pal</div>
+                        <div class="person-dates">1980 – Present</div>
+                        <div class="person-role">Wife</div>
+                      </div>
+                      <span class="toggle-badge">4 kids ▾</span>
+                    </div>
+
+                    <!-- Hawaldar's Children (3rd Gen) -->
+                    <ul>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Suraj Pal</div>
+                          <div class="person-dates">1998 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Tannu Pal</div>
+                          <div class="person-dates">2004 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Sejal Pal</div>
+                          <div class="person-dates">2007 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Yuvraj Pal</div>
+                          <div class="person-dates">2009 – Present</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- 5. Vipin Pal -->
+                  <li>
+                    <div class="couple-container" onclick="toggleNode(this)">
+                      <div class="chiclet male">
+                        <div class="person-name">Vipin Pal</div>
+                        <div class="person-dates">1985 – Present</div>
+                        <div class="person-role">Youngest Son</div>
+                      </div>
+                      <div class="ring-connector">💍</div>
+                      <div class="chiclet female spouse">
+                        <div class="person-name">Poonam Pal</div>
+                        <div class="person-dates">1984 – Present</div>
+                        <div class="person-role">Wife</div>
+                      </div>
+                      <span class="toggle-badge">3 kids ▾</span>
+                    </div>
+
+                    <!-- Vipin's Children (3rd Gen) -->
+                    <ul>
+                      <li>
+                        <div class="chiclet male single-chiclet">
+                          <div class="person-name">Rudra Pal</div>
+                          <div class="person-dates">2008 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Akshita Pal</div>
+                          <div class="person-dates">2011 – Present</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="chiclet female single-chiclet">
+                          <div class="person-name">Arshita Pal</div>
+                          <div class="person-dates">2013 – Present</div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: PHOTO GALLERY -->
+    <section id="gallery-section">
+      <h2 class="section-title">Cherished Moments & Events</h2>
+      <p class="section-desc">Snapshots of weddings, festivals, celebrations, and ancestral heritage.</p>
+
+      <div class="gallery-filter">
+        <button class="filter-btn active" onclick="filterGallery('all', this)">All Memories</button>
+        <button class="filter-btn" onclick="filterGallery('events', this)">Events & Celebrations</button>
+        <button class="filter-btn" onclick="filterGallery('trips', this)">Travel & Trips</button>
+        <button class="filter-btn" onclick="filterGallery('heritage', this)">Ancestral Roots</button>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-card" data-category="events" onclick="openLightbox('Annual Family Gathering', 'All generations gathered together for the Diwali festival.')">
+          <div class="gallery-img-wrap">
+            <span style="font-size:3rem;">🪔</span>
+          </div>
+          <div class="gallery-content">
+            <div class="gallery-tag">Events</div>
+            <div class="gallery-title">Diwali Mahotsav</div>
+            <div class="gallery-desc">Annual lights and celebration uniting all 5 brothers' households.</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="events" onclick="openLightbox('Wedding Bells', 'Celebrating the joyous union of our new generation.')">
+          <div class="gallery-img-wrap">
+            <span style="font-size:3rem;">🎉</span>
+          </div>
+          <div class="gallery-content">
+            <div class="gallery-tag">Events</div>
+            <div class="gallery-title">Wedding Celebrations</div>
+            <div class="gallery-desc">Traditional sangeet, laughter, and family blessings.</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="heritage" onclick="openLightbox('The Ancestral Homeland', 'Punnar Pal and Kalavati Pal foundation roots.')">
+          <div class="gallery-img-wrap">
+            <span style="font-size:3rem;">🌾</span>
+          </div>
+          <div class="gallery-content">
+            <div class="gallery-tag">Heritage</div>
+            <div class="gallery-title">Ancestral Farmland</div>
+            <div class="gallery-desc">Where our values of hard work and resilience first sprouted.</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="trips" onclick="openLightbox('Pilgrimage & Travels', 'Annual spiritual journey with elders and children.')">
+          <div class="gallery-img-wrap">
+            <span style="font-size:3rem;">🏞️</span>
+          </div>
+          <div class="gallery-content">
+            <div class="gallery-tag">Travel</div>
+            <div class="gallery-title">Family Pilgrimage</div>
+            <div class="gallery-desc">Exploring scenic mountain shrines and heritage sites.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: NOTICEBOARD & NOTIFICATIONS -->
+    <section id="notifications-section">
+      <h2 class="section-title">Pal Sena Noticeboard</h2>
+      <p class="section-desc">Post upcoming family gatherings, birthdays, or share announcements.</p>
+
+      <div class="noticeboard-grid">
+        <div class="notice-composer">
+          <h3>Post an Update</h3>
+          <form id="noticeForm" onsubmit="postNotice(event)">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" id="noticeName" placeholder="e.g. Vipul Pal" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="noticeCategory">
+                <option value="General">📢 Announcement</option>
+                <option value="Celebration">🎂 Birthday / Celebration</option>
+                <option value="Urgent">⭐ Urgent Update</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea id="noticeMessage" rows="4" placeholder="Write your announcement or blessing..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Share on Board</button>
+          </form>
+        </div>
+
+        <div class="notices-list" id="noticesList">
+          <div class="notice-item">
+            <div class="notice-meta">
+              <span class="notice-author">📢 Family Council</span>
+              <span class="notice-date">Recent</span>
+            </div>
+            <p class="notice-text">Welcome to the newly launched official <strong>Pal Sena Family Portal</strong>! Please check the family tree and share any old photos or stories with the coordinators.</p>
+          </div>
+
+          <div class="notice-item urgent">
+            <div class="notice-meta">
+              <span class="notice-author">🎉 Next Gathering</span>
+              <span class="notice-date">Upcoming</span>
+            </div>
+            <p class="notice-text">Plans for our next grand family get-together are underway. All branches are requested to coordinate their calendars!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MILESTONES & HIGHLIGHTS -->
+    <section id="highlights-section">
+      <h2 class="section-title">Key Milestones</h2>
+      <p class="section-desc">The defining eras that established our legacy.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-year">1944 – 1945</div>
+            <h4>Roots Sown</h4>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">Birth of Punnar Pal (1944) and Kalavati Pal (1945), establishing the agricultural foundation of our household.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-year">1961 – 1985</div>
+            <h4>The Five Pillars</h4>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">Rise of the second generation: Tufanilal, Bhagwat, Shivprakash, Hawaldar, and Vipin Pal.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-year">1989 – 2013</div>
+            <h4>Modern Growth & Education</h4>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">The third generation flourishes, expanding into engineering, technology, academics, and enterprise across India.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-year">2015 – 2026+</div>
+            <h4>The Fourth Generation</h4>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">Welcoming our youngest stars: Shivan, Apul, Kautilaya, Rishant, and Duggu carrying the Pal Sena flame forward.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="modal" id="lightboxModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeLightbox()">&times;</button>
+      <div style="background:#1e2638;height:280px;display:flex;align-items:center;justify-content:center;font-size:4rem;">
+        📸
+      </div>
+      <div style="padding:1.5rem;">
+        <h3 id="modalTitle" style="color:var(--gold);font-family:'Cinzel',serif;margin-bottom:0.5rem;">Event</h3>
+        <p id="modalDesc" style="color:var(--text-muted);font-size:0.9rem;">Description</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Pal Sena &bull; Ancestral Lineage & Heritage Archive &bull; Built with respect and unity.</p>
+  </footer>
+
+  <script>
+    /* ========================================================
+       1. DRAGGABLE & FREELY SCROLLABLE TREE CANVAS
+       ======================================================== */
+    const viewport = document.getElementById('treeViewport');
+    let isDown = false;
+    let startX, startY, scrollLeftVal, scrollTopVal;
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.couple-container')) return;
+      isDown = true;
+      startX = e.pageX - viewport.offsetLeft;
+      startY = e.pageY - viewport.offsetTop;
+      scrollLeftVal = viewport.scrollLeft;
+      scrollTopVal = viewport.scrollTop;
+    });
+
+    viewport.addEventListener('mouseleave', () => { isDown = false; });
+    viewport.addEventListener('mouseup', () => { isDown = false; });
+
+    viewport.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - viewport.offsetLeft;
+      const y = e.pageY - viewport.offsetTop;
+      viewport.scrollLeft = scrollLeftVal - (x - startX) * 1.5;
+      viewport.scrollTop = scrollTopVal - (y - startY) * 1.5;
+    });
+
+    // Mobile Touch Drag
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.couple-container')) return;
+      isDown = true;
+      startX = e.touches[0].pageX - viewport.offsetLeft;
+      startY = e.touches[0].pageY - viewport.offsetTop;
+      scrollLeftVal = viewport.scrollLeft;
+      scrollTopVal = viewport.scrollTop;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', () => { isDown = false; });
+
+    viewport.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - viewport.offsetLeft;
+      const y = e.touches[0].pageY - viewport.offsetTop;
+      viewport.scrollLeft = scrollLeftVal - (x - startX) * 1.5;
+      viewport.scrollTop = scrollTopVal - (y - startY) * 1.5;
+    }, { passive: true });
+
+    function resetCenter() {
+      const treeRoot = document.getElementById('treeRoot');
+      if (treeRoot) {
+        viewport.scrollLeft = (treeRoot.offsetLeft + (treeRoot.offsetWidth / 2)) - (viewport.offsetWidth / 2);
+        viewport.scrollTop = 0;
+      }
+    }
+
+    function scrollToLeft() {
+      viewport.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(resetCenter, 150);
+    });
+
+    /* ========================================================
+       2. TREE TOGGLE LOGIC
+       ======================================================== */
+    function toggleNode(element) {
+      const parentLi = element.closest('li');
+      if (parentLi && parentLi.querySelector('ul')) {
+        parentLi.classList.toggle('collapsed');
+      }
+    }
+
+    function expandAll() {
+      document.querySelectorAll('.tree li').forEach(li => {
+        li.classList.remove('collapsed');
+      });
+      setTimeout(resetCenter, 100);
+    }
+
+    function collapseAll() {
+      expandAll();
+      const secondGenLis = document.querySelectorAll('#root-node > ul > li');
+      secondGenLis.forEach(li => {
+        li.classList.add('collapsed');
+      });
+      setTimeout(resetCenter, 100);
+    }
+
+    /* ========================================================
+       3. PHOTO GALLERY FILTER & LIGHTBOX
+       ======================================================== */
+    function filterGallery(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.gallery-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function openLightbox(title, desc) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    /* ========================================================
+       4. NOTICEBOARD LOCAL STORAGE
+       ======================================================== */
+    function loadSavedNotices() {
+      const stored = localStorage.getItem('pal_sena_notices');
+      if (stored) {
+        const notices = JSON.parse(stored);
+        const list = document.getElementById('noticesList');
+        notices.forEach(n => {
+          const item = document.createElement('div');
+          item.className = 'notice-item' + (n.category === 'Urgent' ? ' urgent' : '');
+          item.innerHTML = `
+            <div class="notice-meta">
+              <span class="notice-author">${escapeHtml(n.name)} (${escapeHtml(n.category)})</span>
+              <span class="notice-date">${escapeHtml(n.date)}</span>
+            </div>
+            <p class="notice-text">${escapeHtml(n.message)}</p>
+          `;
+          list.prepend(item);
+        });
+      }
+    }
+
+    function postNotice(e) {
+      e.preventDefault();
+      const name = document.getElementById('noticeName').value.trim();
+      const category = document.getElementById('noticeCategory').value;
+      const message = document.getElementById('noticeMessage').value.trim();
+      if (!name || !message) return;
+
+      const newNotice = {
+        name,
+        category,
+        message,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+      };
+
+      const stored = JSON.parse(localStorage.getItem('pal_sena_notices') || '[]');
+      stored.unshift(newNotice);
+      localStorage.setItem('pal_sena_notices', JSON.stringify(stored));
+
+      const list = document.getElementById('noticesList');
+      const item = document.createElement('div');
+      item.className = 'notice-item' + (category === 'Urgent' ? ' urgent' : '');
+      item.innerHTML = `
+        <div class="notice-meta">
+          <span class="notice-author">${escapeHtml(newNotice.name)} (${escapeHtml(newNotice.category)})</span>
+          <span class="notice-date">${escapeHtml(newNotice.date)}</span>
+        </div>
+        <p class="notice-text">${escapeHtml(newNotice.message)}</p>
+      `;
+      list.prepend(item);
+
+      document.getElementById('noticeForm').reset();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    loadSavedNotices();
+  </script>
+</body>
+</html>
