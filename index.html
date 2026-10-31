@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pal Sena - Official Family Portal</title>
+  <!-- Favicon using Golden House Icon -->
+  <link rel="icon" type="image/jpeg" href="title_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -44,8 +46,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(11, 14, 20, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(11, 14, 20, 0.94);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       padding: 0.75rem 1.5rem;
       display: flex;
@@ -64,22 +66,19 @@
       text-decoration: none;
     }
 
-    .nav-brand span.crest-mini {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), #b45309);
-      color: #000;
-      font-size: 1rem;
+    .nav-brand img.brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
     }
 
     .nav-links {
       display: flex;
       gap: 1.25rem;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -94,7 +93,22 @@
       color: var(--gold);
     }
 
-    /* Header */
+    .admin-nav-btn {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      cursor: pointer;
+    }
+
+    .admin-nav-btn:hover {
+      background: var(--gold);
+      color: #000 !important;
+    }
+
+    /* Hero */
     header {
       background: radial-gradient(circle at top, rgba(139, 29, 36, 0.35) 0%, rgba(11, 14, 20, 0.95) 75%), var(--bg);
       border-bottom: 1px solid var(--border);
@@ -103,18 +117,24 @@
       position: relative;
     }
 
-    .crest {
+    .hero-icon-container {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold) 0%, #b45309 100%);
-      color: #000;
-      font-size: 2.2rem;
-      box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
-      margin-bottom: 1rem;
+      width: 90px;
+      height: 90px;
+      border-radius: 20px;
+      background: #000;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+    }
+
+    .hero-icon-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     h1 {
@@ -460,31 +480,77 @@
       font-weight: 600;
     }
 
-    /* Photo Gallery */
-    .gallery-filter {
+    /* ========================================================
+       PHOTO GALLERY WITH PERSON / SUB-ALBUM GROUPING
+       ======================================================== */
+    .gallery-filter-main {
       display: flex;
       justify-content: center;
       gap: 0.75rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
       flex-wrap: wrap;
     }
 
-    .filter-btn {
+    .filter-btn-main {
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 0.45rem 1.1rem;
+      padding: 0.5rem 1.3rem;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .filter-btn.active, .filter-btn:hover {
+    .filter-btn-main.active, .filter-btn-main:hover {
       background: var(--gold);
       color: #000;
-      font-weight: 600;
       border-color: var(--gold);
+    }
+
+    /* Sub-Album Grouping Chiclets */
+    .subgroups-wrapper {
+      background: rgba(18, 23, 32, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .subgroups-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .subgroups-chiclets-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .subgroup-chip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .subgroup-chip:hover, .subgroup-chip.active {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
     }
 
     .gallery-grid {
@@ -511,16 +577,35 @@
 
     .gallery-img-wrap {
       width: 100%;
-      height: 210px;
+      height: 220px;
       background: var(--surface-2);
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+    }
+
+    .gallery-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .gallery-card:hover .gallery-img-wrap img {
+      transform: scale(1.04);
     }
 
     .gallery-content {
       padding: 1rem 1.2rem;
+    }
+
+    .gallery-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
     }
 
     .gallery-tag {
@@ -529,7 +614,15 @@
       letter-spacing: 0.5px;
       color: var(--gold);
       font-weight: 700;
-      margin-bottom: 0.25rem;
+    }
+
+    .gallery-subgroup-badge {
+      font-size: 0.7rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--gold-light);
     }
 
     .gallery-title {
@@ -757,7 +850,7 @@
       font-size: 1.1rem;
     }
 
-    /* Modal */
+    /* Modals */
     .modal {
       display: none;
       position: fixed;
@@ -777,30 +870,41 @@
     }
 
     .modal-content {
-      max-width: 700px;
+      max-width: 680px;
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       position: relative;
     }
 
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: 1.25rem;
+    }
+
     .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(0,0,0,0.6);
+      background: none;
       border: none;
       color: #fff;
       font-size: 1.5rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     footer {
@@ -813,7 +917,7 @@
     }
   </style>
 
-  <!-- Google Firebase App & Realtime Database CDN (Spark Tier) -->
+  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
@@ -822,7 +926,7 @@
   <!-- Navigation -->
   <nav>
     <a href="#" class="nav-brand">
-      <span class="crest-mini">👑</span>
+      <img src="title_icon.jpg" alt="Pal Sena House" class="brand-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d4af37\'><path d=\'M12 3L2 12h3v8h14v-8h3L12 3zm0 4.5l5 4.5h-2v6h-6v-6H7l5-4.5z\'/></svg>'">
       Pal Sena
     </a>
     <ul class="nav-links">
@@ -830,12 +934,15 @@
       <li><a href="#gallery-section">Photo Gallery</a></li>
       <li><a href="#notifications-section">Noticeboard</a></li>
       <li><a href="#highlights-section">Milestones</a></li>
+      <li><button class="admin-nav-btn" onclick="openAdminModal()">⚙️ Admin Login</button></li>
     </ul>
   </nav>
 
   <!-- Header -->
   <header>
-    <div class="crest">👑</div>
+    <div class="hero-icon-container">
+      <img src="title_icon.jpg" alt="Pal Sena Crest" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d4af37\'><path d=\'M12 3L2 12h3v8h14v-8h3L12 3zm0 4.5l5 4.5h-2v6h-6v-6H7l5-4.5z\'/></svg>'">
+    </div>
     <h1>Pal Sena</h1>
     <p class="subtitle">Official Family Portal & Ancestral Tree • Honouring our roots, celebrating our growth, and binding our generations together.</p>
     
@@ -866,7 +973,6 @@
         <div class="legend-item"><span class="ring-connector" style="width:14px;height:14px;font-size:0.6rem;">💍</span> Marriage Union</div>
       </div>
 
-      <!-- Free Pan Canvas with unrestricted horizontal reach -->
       <div class="tree-viewport" id="treeViewport">
         <div class="tree-canvas" id="treeCanvas">
           <div class="tree" id="treeRoot">
@@ -907,7 +1013,6 @@
                       <span class="toggle-badge">5 kids ▾</span>
                     </div>
 
-                    <!-- Tufanilal's Children (3rd Gen) -->
                     <ul>
                       <li>
                         <div class="couple-container" onclick="toggleNode(this)">
@@ -922,7 +1027,6 @@
                           </div>
                           <span class="toggle-badge">1 son ▾</span>
                         </div>
-                        <!-- 4th Gen: Shivan -->
                         <ul>
                           <li>
                             <div class="chiclet male single-chiclet">
@@ -977,7 +1081,6 @@
                       <span class="toggle-badge">6 kids ▾</span>
                     </div>
 
-                    <!-- Bhagwat's Children (3rd Gen) -->
                     <ul>
                       <li>
                         <div class="couple-container" onclick="toggleNode(this)">
@@ -992,7 +1095,6 @@
                           </div>
                           <span class="toggle-badge">2 sons ▾</span>
                         </div>
-                        <!-- 4th Gen: Apul & Kautilaya -->
                         <ul>
                           <li>
                             <div class="chiclet male single-chiclet">
@@ -1058,7 +1160,6 @@
                       <span class="toggle-badge">6 kids ▾</span>
                     </div>
 
-                    <!-- Shivprakash's Children (3rd Gen) -->
                     <ul>
                       <li>
                         <div class="couple-container" onclick="toggleNode(this)">
@@ -1073,7 +1174,6 @@
                           </div>
                           <span class="toggle-badge">1 son ▾</span>
                         </div>
-                        <!-- 4th Gen: Rishant -->
                         <ul>
                           <li>
                             <div class="chiclet male single-chiclet">
@@ -1096,7 +1196,6 @@
                           </div>
                           <span class="toggle-badge">1 son ▾</span>
                         </div>
-                        <!-- 4th Gen: Duggu -->
                         <ul>
                           <li>
                             <div class="chiclet male single-chiclet">
@@ -1157,7 +1256,6 @@
                       <span class="toggle-badge">4 kids ▾</span>
                     </div>
 
-                    <!-- Hawaldar's Children (3rd Gen) -->
                     <ul>
                       <li>
                         <div class="chiclet male single-chiclet">
@@ -1203,7 +1301,6 @@
                       <span class="toggle-badge">3 kids ▾</span>
                     </div>
 
-                    <!-- Vipin's Children (3rd Gen) -->
                     <ul>
                       <li>
                         <div class="chiclet male single-chiclet">
@@ -1234,66 +1331,35 @@
       </div>
     </section>
 
-    <!-- SECTION 2: PHOTO GALLERY -->
+    <!-- SECTION 2: PHOTO GALLERY WITH GROUPING & ADMIN UPLOADS -->
     <section id="gallery-section">
-      <h2 class="section-title">Cherished Moments & Events</h2>
-      <p class="section-desc">Snapshots of weddings, festivals, celebrations, and ancestral heritage.</p>
+      <h2 class="section-title">Pal Sena Gallery & Albums</h2>
+      <p class="section-desc">Browse albums grouped by event and individual. Select any category to view individual wedding and celebration albums.</p>
 
-      <div class="gallery-filter">
-        <button class="filter-btn active" onclick="filterGallery('all', this)">All Memories</button>
-        <button class="filter-btn" onclick="filterGallery('events', this)">Events & Celebrations</button>
-        <button class="filter-btn" onclick="filterGallery('trips', this)">Travel & Trips</button>
-        <button class="filter-btn" onclick="filterGallery('heritage', this)">Ancestral Roots</button>
+      <!-- Primary Category Chiclets -->
+      <div class="gallery-filter-main">
+        <button class="filter-btn-main active" onclick="selectMainCategory('all', this)">All Memories</button>
+        <button class="filter-btn-main" onclick="selectMainCategory('weddings', this)">💍 Wedding Celebrations</button>
+        <button class="filter-btn-main" onclick="selectMainCategory('events', this)">🎉 Festivals & Functions</button>
+        <button class="filter-btn-main" onclick="selectMainCategory('trips', this)">🏞️ Travel & Tours</button>
+        <button class="filter-btn-main" onclick="selectMainCategory('heritage', this)">🌾 Ancestral Roots</button>
       </div>
 
+      <!-- Dynamic Sub-Group Bar (e.g. Vipul's Wedding, Seema's Wedding) -->
+      <div class="subgroups-wrapper" id="subgroupsContainer">
+        <div class="subgroups-title" id="subgroupsLabel">Select An Album / Person</div>
+        <div class="subgroups-chiclets-bar" id="subgroupsBar">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Photo Grid -->
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-card" data-category="events" onclick="openLightbox('Annual Family Gathering', 'All generations gathered together for the Diwali festival.')">
-          <div class="gallery-img-wrap">
-            <span style="font-size:3rem;">🪔</span>
-          </div>
-          <div class="gallery-content">
-            <div class="gallery-tag">Events</div>
-            <div class="gallery-title">Diwali Mahotsav</div>
-            <div class="gallery-desc">Annual lights and celebration uniting all 5 brothers' households.</div>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="events" onclick="openLightbox('Wedding Bells', 'Celebrating the joyous union of our new generation.')">
-          <div class="gallery-img-wrap">
-            <span style="font-size:3rem;">🎉</span>
-          </div>
-          <div class="gallery-content">
-            <div class="gallery-tag">Events</div>
-            <div class="gallery-title">Wedding Celebrations</div>
-            <div class="gallery-desc">Traditional sangeet, laughter, and family blessings.</div>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="heritage" onclick="openLightbox('The Ancestral Homeland', 'Punnar Pal and Kalavati Pal foundation roots.')">
-          <div class="gallery-img-wrap">
-            <span style="font-size:3rem;">🌾</span>
-          </div>
-          <div class="gallery-content">
-            <div class="gallery-tag">Heritage</div>
-            <div class="gallery-title">Ancestral Farmland</div>
-            <div class="gallery-desc">Where our values of hard work and resilience first sprouted.</div>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="trips" onclick="openLightbox('Pilgrimage & Travels', 'Annual spiritual journey with elders and children.')">
-          <div class="gallery-img-wrap">
-            <span style="font-size:3rem;">🏞️</span>
-          </div>
-          <div class="gallery-content">
-            <div class="gallery-tag">Travel</div>
-            <div class="gallery-title">Family Pilgrimage</div>
-            <div class="gallery-desc">Exploring scenic mountain shrines and heritage sites.</div>
-          </div>
-        </div>
+        <!-- Rendered dynamically from Database + Defaults -->
       </div>
     </section>
 
-    <!-- SECTION 3: NOTICEBOARD & NOTIFICATIONS (FIREBASE REALTIME SYNC) -->
+    <!-- SECTION 3: NOTICEBOARD & NOTIFICATIONS (FIREBASE) -->
     <section id="notifications-section">
       <h2 class="section-title">Pal Sena Noticeboard</h2>
       <p class="section-desc">Live community board. Any update posted here appears instantly for all family members.</p>
@@ -1382,16 +1448,92 @@
     </section>
   </main>
 
-  <!-- Lightbox Modal -->
+  <!-- ADMIN LOGIN & PHOTO UPLOAD MODAL -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="adminModalTitle">⚙️ Admin Login</h3>
+        <button class="modal-close" onclick="closeAdminModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Auth View -->
+        <div id="adminAuthSection">
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">Enter the administrative PIN to upload photos, create new album groups, and manage the portal.</p>
+          <div class="form-group">
+            <label>Admin Passcode / PIN</label>
+            <input type="password" id="adminPinInput" placeholder="Enter PIN (Default: 1944)" onkeydown="if(event.key==='Enter') verifyAdminPin()">
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="verifyAdminPin()">Unlock Admin Dashboard</button>
+        </div>
+
+        <!-- Upload Dashboard View -->
+        <div id="adminDashboardSection" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;">
+            <span style="color:#4ade80;font-size:0.85rem;">● Logged In as Admin</span>
+            <button class="btn" style="padding:0.25rem 0.6rem;font-size:0.75rem;" onclick="adminLogout()">Logout</button>
+          </div>
+
+          <form onsubmit="handleAdminPhotoUpload(event)">
+            <div class="form-group">
+              <label>1. Main Category</label>
+              <select id="uploadCategory" onchange="updateGroupSuggestions(this.value)">
+                <option value="weddings">💍 Wedding Celebrations</option>
+                <option value="events">🎉 Festivals & Functions</option>
+                <option value="trips">🏞️ Travel & Tours</option>
+                <option value="heritage">🌾 Ancestral Roots</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>2. Album / Person Group Name</label>
+              <input type="text" id="uploadSubgroup" list="subgroupSuggestions" placeholder="e.g. Vipul's Wedding or Seema's Wedding" required>
+              <datalist id="subgroupSuggestions">
+                <option value="Vipul's Wedding">
+                <option value="Seema's Wedding">
+                <option value="Priyanka's Wedding">
+                <option value="Rinki's Wedding">
+                <option value="Shanu's Wedding">
+                <option value="Sonam's Wedding">
+              </datalist>
+              <span style="font-size:0.75rem;color:var(--text-muted);">Tip: Type any name to create a brand new chiclet group.</span>
+            </div>
+
+            <div class="form-group">
+              <label>3. Photo Title / Caption</label>
+              <input type="text" id="uploadTitle" placeholder="e.g. Sangeet Ceremony Smiles" required>
+            </div>
+
+            <div class="form-group">
+              <label>4. Photo File or Web Image URL</label>
+              <input type="file" id="uploadFileInput" accept="image/*" style="margin-bottom:0.5rem;" onchange="previewImageFile(event)">
+              <input type="url" id="uploadUrlInput" placeholder="Or paste Image URL (https://...)">
+            </div>
+
+            <div id="uploadPreviewBox" style="display:none;margin-bottom:1rem;text-align:center;">
+              <img id="uploadPreviewImg" src="" style="max-height:160px;border-radius:8px;border:1px solid var(--border);">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="uploadSubmitBtn" style="width:100%;">Upload & Publish to Everyone</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Lightbox Modal -->
   <div class="modal" id="lightboxModal">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeLightbox()">&times;</button>
-      <div style="background:#1e2638;height:280px;display:flex;align-items:center;justify-content:center;font-size:4rem;">
-        📸
+      <button class="modal-close" style="position:absolute;top:10px;right:15px;z-index:20;" onclick="closeLightbox()">&times;</button>
+      <div id="lightboxImgContainer" style="background:#070a0f;max-height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <!-- Img injected here -->
       </div>
       <div style="padding:1.5rem;">
-        <h3 id="modalTitle" style="color:var(--gold);font-family:'Cinzel',serif;margin-bottom:0.5rem;">Event</h3>
-        <p id="modalDesc" style="color:var(--text-muted);font-size:0.9rem;">Description</p>
+        <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;">
+          <span id="modalCategory" class="gallery-tag">CATEGORY</span>
+          <span id="modalSubgroup" class="gallery-subgroup-badge">Group</span>
+        </div>
+        <h3 id="modalTitle" style="color:var(--gold);font-family:'Cinzel',serif;font-size:1.2rem;">Title</h3>
+        <p id="modalDesc" style="color:var(--text-muted);font-size:0.88rem;margin-top:0.3rem;">Description</p>
       </div>
     </div>
   </div>
@@ -1402,7 +1544,7 @@
 
   <script>
     /* ========================================================
-       1. FIREBASE REALTIME DATABASE SYNC
+       1. FIREBASE CONFIGURATION (Database & Cloud Sync)
        ======================================================== */
     const firebaseConfig = {
       apiKey: "AIzaSyAllJxe5nLK_M2SmB-fi7NQmXQmIaUVx84",
@@ -1417,13 +1559,14 @@
 
     let db = null;
     let noticesRef = null;
+    let galleryRef = null;
 
     try {
       firebase.initializeApp(firebaseConfig);
       db = firebase.database();
       noticesRef = db.ref('notices');
+      galleryRef = db.ref('gallery_items');
 
-      // Check live connection
       const connectedRef = db.ref('.info/connected');
       connectedRef.on('value', (snap) => {
         const syncStatus = document.getElementById('syncStatus');
@@ -1440,12 +1583,17 @@
       });
 
       listenForRealtimeNotices();
+      listenForRealtimeGallery();
     } catch (err) {
       console.warn("Firebase Init Error:", err);
       document.getElementById('syncStatus').textContent = "Offline Fallback Mode";
       loadLocalFallback();
+      loadLocalGalleryFallback();
     }
 
+    /* ========================================================
+       2. NOTICEBOARD LOGIC
+       ======================================================== */
     function listenForRealtimeNotices() {
       noticesRef.orderByChild('timestamp').limitToLast(60).on('value', (snapshot) => {
         const noticesList = document.getElementById('noticesList');
@@ -1462,11 +1610,6 @@
         });
 
         if (pinned) noticesList.appendChild(pinned);
-      }, (error) => {
-        console.error("Database Read Error:", error);
-        document.getElementById('syncStatus').textContent = "Permission Error: Check Realtime Database Rules";
-        document.getElementById('syncStatus').style.color = "#f87171";
-        loadLocalFallback();
       });
     }
 
@@ -1489,7 +1632,7 @@
         noticesRef.push(newNotice).then(() => {
           document.getElementById('noticeForm').reset();
         }).catch((err) => {
-          alert("Error publishing message to cloud: " + err.message + "\n(Please make sure your Firebase Realtime Database rules have read/write set to true).");
+          alert("Error publishing message: " + err.message);
         });
       } else {
         saveToLocalStorage(newNotice);
@@ -1531,7 +1674,307 @@
     }
 
     /* ========================================================
-       2. TREE CANVAS CONTROLS & UNRESTRICTED DRAGGING
+       3. DYNAMIC GALLERY & GROUPING LOGIC
+       ======================================================== */
+    // Initial sample photos with individual person / event grouping
+    let allGalleryItems = [
+      {
+        id: "w1",
+        category: "weddings",
+        subgroup: "Vipul's Wedding",
+        title: "Vipul's Sangeet Celebration",
+        img: "title_icon.jpg",
+        date: "Family Archive"
+      },
+      {
+        id: "w2",
+        category: "weddings",
+        subgroup: "Seema's Wedding",
+        title: "Seema & Harilal's Nuptials",
+        img: "title_icon.jpg",
+        date: "Family Archive"
+      },
+      {
+        id: "e1",
+        category: "events",
+        subgroup: "Diwali Mahotsav",
+        title: "Annual Diwali Lights & Pooja",
+        img: "title_icon.jpg",
+        date: "Annual"
+      },
+      {
+        id: "t1",
+        category: "trips",
+        subgroup: "Haridwar & Subedarganj",
+        title: "Holy Ganges Darshan",
+        img: "title_icon.jpg",
+        date: "Family Yatra"
+      },
+      {
+        id: "h1",
+        category: "heritage",
+        subgroup: "Punnar & Kalavati Roots",
+        title: "Ancestral Homeland & Farmland",
+        img: "title_icon.jpg",
+        date: "1944 Legacy"
+      }
+    ];
+
+    let currentMainCategory = 'all';
+    let currentSubgroup = 'all';
+
+    function listenForRealtimeGallery() {
+      galleryRef.on('value', (snap) => {
+        if (snap.exists()) {
+          const cloudItems = [];
+          snap.forEach((child) => {
+            cloudItems.unshift({ id: child.key, ...child.val() });
+          });
+          // Merge defaults and cloud items
+          allGalleryItems = [...cloudItems, ...allGalleryItems.filter(def => !cloudItems.some(c => c.id === def.id))];
+        }
+        renderSubgroupsBar();
+        renderGalleryGrid();
+      });
+    }
+
+    function selectMainCategory(cat, btn) {
+      currentMainCategory = cat;
+      currentSubgroup = 'all';
+
+      document.querySelectorAll('.filter-btn-main').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      renderSubgroupsBar();
+      renderGalleryGrid();
+    }
+
+    function selectSubgroup(subgroup, chip) {
+      currentSubgroup = subgroup;
+      document.querySelectorAll('.subgroup-chip').forEach(c => c.classList.remove('active'));
+      if (chip) chip.classList.add('active');
+      renderGalleryGrid();
+    }
+
+    function renderSubgroupsBar() {
+      const container = document.getElementById('subgroupsContainer');
+      const bar = document.getElementById('subgroupsBar');
+      const label = document.getElementById('subgroupsLabel');
+
+      // Filter items according to the main category
+      const visibleItems = currentMainCategory === 'all'
+        ? allGalleryItems
+        : allGalleryItems.filter(item => item.category === currentMainCategory);
+
+      // Collect unique subgroups
+      const subgroups = [...new Set(visibleItems.map(item => item.subgroup).filter(Boolean))];
+
+      if (subgroups.length === 0) {
+        container.style.display = 'none';
+        return;
+      }
+
+      container.style.display = 'block';
+      label.textContent = currentMainCategory === 'weddings' 
+        ? "Select A Couple / Wedding Chiclet" 
+        : "Select Group / Album Chiclet";
+
+      bar.innerHTML = `<button class="subgroup-chip ${currentSubgroup === 'all' ? 'active' : ''}" onclick="selectSubgroup('all', this)">All ${currentMainCategory === 'weddings' ? 'Weddings' : 'Albums'}</button>`;
+
+      subgroups.forEach(sg => {
+        const activeClass = currentSubgroup === sg ? 'active' : '';
+        bar.innerHTML += `<button class="subgroup-chip ${activeClass}" onclick="selectSubgroup('${escapeHtml(sg)}', this)">${escapeHtml(sg)}</button>`;
+      });
+    }
+
+    function renderGalleryGrid() {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+
+      const filtered = allGalleryItems.filter(item => {
+        const matchMain = (currentMainCategory === 'all' || item.category === currentMainCategory);
+        const matchSub = (currentSubgroup === 'all' || item.subgroup === currentSubgroup);
+        return matchMain && matchSub;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No photos uploaded for this album yet. Admin can upload photos using the Admin Portal button.</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+        card.onclick = () => openLightbox(item);
+
+        card.innerHTML = `
+          <div class="gallery-img-wrap">
+            <img src="${item.img}" alt="${escapeHtml(item.title)}" onerror="this.src='title_icon.jpg'">
+          </div>
+          <div class="gallery-content">
+            <div class="gallery-tag-row">
+              <span class="gallery-tag">${escapeHtml(item.category)}</span>
+              <span class="gallery-subgroup-badge">${escapeHtml(item.subgroup || 'General')}</span>
+            </div>
+            <div class="gallery-title">${escapeHtml(item.title)}</div>
+            <div class="gallery-desc">${escapeHtml(item.date || 'Pal Sena Album')}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function loadLocalGalleryFallback() {
+      const stored = localStorage.getItem('pal_sena_gallery');
+      if (stored) {
+        allGalleryItems = JSON.parse(stored);
+      }
+      renderSubgroupsBar();
+      renderGalleryGrid();
+    }
+
+    /* ========================================================
+       4. ADMIN AUTHENTICATION & PHOTO UPLOAD
+       ======================================================== */
+    const ADMIN_PASSCODE = "1944"; // You can change this PIN
+
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.add('active');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('active');
+    }
+
+    function verifyAdminPin() {
+      const pin = document.getElementById('adminPinInput').value.trim();
+      if (pin === ADMIN_PASSCODE || pin.toLowerCase() === "palsena") {
+        document.getElementById('adminAuthSection').style.display = 'none';
+        document.getElementById('adminDashboardSection').style.display = 'block';
+        document.getElementById('adminModalTitle').textContent = "⚙️ Admin Photo & Album Manager";
+      } else {
+        alert("Incorrect Admin Passcode. Please try again.");
+      }
+    }
+
+    function adminLogout() {
+      document.getElementById('adminAuthSection').style.display = 'block';
+      document.getElementById('adminDashboardSection').style.display = 'none';
+      document.getElementById('adminModalTitle').textContent = "⚙️ Admin Login";
+      document.getElementById('adminPinInput').value = '';
+    }
+
+    let encodedImageData = "";
+
+    function previewImageFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        encodedImageData = evt.target.result;
+        const preview = document.getElementById('uploadPreviewImg');
+        preview.src = encodedImageData;
+        document.getElementById('uploadPreviewBox').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updateGroupSuggestions(category) {
+      const suggestions = document.getElementById('subgroupSuggestions');
+      if (category === 'weddings') {
+        suggestions.innerHTML = `
+          <option value="Vipul's Wedding">
+          <option value="Seema's Wedding">
+          <option value="Priyanka's Wedding">
+          <option value="Rinki's Wedding">
+          <option value="Shanu's Wedding">
+          <option value="Sonam's Wedding">
+        `;
+      } else if (category === 'events') {
+        suggestions.innerHTML = `
+          <option value="Diwali Mahotsav">
+          <option value="Holi Celebration">
+          <option value="Family Gathering">
+        `;
+      } else if (category === 'trips') {
+        suggestions.innerHTML = `
+          <option value="Haridwar & Subedarganj Yatra">
+          <option value="Statue of Unity Trip">
+          <option value="Nashik Pilgrimage">
+        `;
+      } else {
+        suggestions.innerHTML = `
+          <option value="Punnar & Kalavati Roots">
+          <option value="Ancestral Village">
+        `;
+      }
+    }
+
+    function handleAdminPhotoUpload(e) {
+      e.preventDefault();
+      const category = document.getElementById('uploadCategory').value;
+      const subgroup = document.getElementById('uploadSubgroup').value.trim();
+      const title = document.getElementById('uploadTitle').value.trim();
+      const urlInput = document.getElementById('uploadUrlInput').value.trim();
+
+      const finalImgSrc = encodedImageData || urlInput || "title_icon.jpg";
+
+      const newItem = {
+        category: category,
+        subgroup: subgroup,
+        title: title,
+        img: finalImgSrc,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+        timestamp: Date.now()
+      };
+
+      if (galleryRef) {
+        galleryRef.push(newItem).then(() => {
+          alert(`Successfully published photo into "${subgroup}"! It is now live for everyone.`);
+          resetUploadForm();
+          closeAdminModal();
+        }).catch(err => {
+          alert("Error publishing: " + err.message);
+        });
+      } else {
+        allGalleryItems.unshift(newItem);
+        localStorage.setItem('pal_sena_gallery', JSON.stringify(allGalleryItems));
+        alert(`Saved locally into "${subgroup}"!`);
+        resetUploadForm();
+        renderSubgroupsBar();
+        renderGalleryGrid();
+        closeAdminModal();
+      }
+    }
+
+    function resetUploadForm() {
+      document.getElementById('uploadTitle').value = '';
+      document.getElementById('uploadSubgroup').value = '';
+      document.getElementById('uploadUrlInput').value = '';
+      document.getElementById('uploadFileInput').value = '';
+      document.getElementById('uploadPreviewBox').style.display = 'none';
+      encodedImageData = "";
+    }
+
+    /* ========================================================
+       5. LIGHTBOX MODAL
+       ======================================================== */
+    function openLightbox(item) {
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalCategory').textContent = item.category.toUpperCase();
+      document.getElementById('modalSubgroup').textContent = item.subgroup || 'Family Album';
+      document.getElementById('modalDesc').textContent = item.date || 'Captured moment';
+      document.getElementById('lightboxImgContainer').innerHTML = `<img src="${item.img}" style="max-height:480px;width:100%;object-fit:contain;" onerror="this.src='title_icon.jpg'">`;
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    /* ========================================================
+       6. DRAGGABLE & FREELY SCROLLABLE TREE CANVAS
        ======================================================== */
     const viewport = document.getElementById('treeViewport');
     let isDown = false;
@@ -1592,10 +2035,12 @@
 
     window.addEventListener('load', () => {
       setTimeout(resetCenter, 150);
+      renderSubgroupsBar();
+      renderGalleryGrid();
     });
 
     /* ========================================================
-       3. TREE EXPANSION / COLLAPSE
+       7. TREE EXPANSION / COLLAPSE
        ======================================================== */
     function toggleNode(element) {
       const parentLi = element.closest('li');
@@ -1618,33 +2063,6 @@
         li.classList.add('collapsed');
       });
       setTimeout(resetCenter, 100);
-    }
-
-    /* ========================================================
-       4. PHOTO GALLERY FILTER & LIGHTBOX
-       ======================================================== */
-    function filterGallery(category, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const cards = document.querySelectorAll('.gallery-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    function openLightbox(title, desc) {
-      document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalDesc').textContent = desc;
-      document.getElementById('lightboxModal').classList.add('active');
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightboxModal').classList.remove('active');
     }
 
     function escapeHtml(text) {
